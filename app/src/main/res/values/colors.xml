@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 基础颜色 -->
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="ripple">#4DFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#333333</color>
+
+    <!-- SHOUREN 蓝色主题色 -->
+    <!-- 主色、深色主色、强调色已在基础颜色中定义，此处不再重复 -->
+    <!-- 涟漪效果、全透明、白色可直接使用 -->
+
+    <!-- ViewLib 组件专用颜色 -->
+    <!-- 对话框 -->
+    <color name="dialog_bg">#FFFFFF</color>
+    <color name="dialog_text_first">#031C36</color>
+    <color name="dialog_text_second">#333333</color>
+
+    <!-- 按钮 -->
+    <color name="button_enable">#FFC107</color>
+    <color name="button_disable">#804991FF</color>
+
+    <!-- 底部导航栏 -->
+    <color name="bottom_tab_selected_color">#FFC107</color>
+    <color name="bottom_tab_unselected_color">#9AA7B9</color>
+
+    <!-- 反馈页面 -->
+    <color name="feedback_reason_text_select">#ffffff</color>
+    <color name="feedback_reason_text_unselect">#242424</color>
+    <color name="feedback_page_bg">@color/white</color>
+
+    <!-- 边框和分割线 -->
+    <color name="shouren_border">#E5E7EB</color>
+    <color name="shouren_divider">#E5E7EB</color>
+
+</resources>

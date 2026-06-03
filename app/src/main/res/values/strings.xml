@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">SHOUREN</string>
+
+    <!--YouTube Create Activity-->
+    <string name="create">创建</string>
+    <string name="url">URL</string>
+    <string name="video_id">视频ID</string>
+    <string name="channel_url">频道链接</string>
+    <string name="hint_url">请输入链接</string>
+    <string name="hint_youtube_url">请输入URL链接</string>
+    <string name="hint_youtube_video_id">请输入Video视频链接</string>
+    <string name="hint_youtube_channel_url">请输入Channel频道链接</string>
+    <string name="generate_qr_code">生成二维码</string>
+    <string name="save">保存</string>
+    <string name="share">分享</string>
+    <string name="error_empty_input">请输入内容</string>
+    <string name="username">用户名</string>
+
+    <!--Calendar Create Activity-->
+    <string name="calendar_event_title">事件标题</string>
+    <string name="calendar_location">地点</string>
+    <string name="calendar_description">描述</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="select_date">选择日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="all_day">全天</string>
+
+<!-- 文本框Hints事件提示  -->
+    <string name="hint_calendar_title">请输入事件标题</string>
+    <string name="hint_calendar_location">请输入地点</string>
+    <string name="hint_calendar_description">请输入事件描述</string>
+
+<!--提示-->
+    <string name="error_empty_title">请输入事件标题</string>
+    <string name="error_end_before_start">结束时间不能早于开始时间</string>
+    <string name="calendar_generated">日历二维码生成</string>
+    <string name="qr_code">二维码</string>
+
+    <!--Date/Time Format-->
+    <string name="date_time_format" formatted="false">%s %s</string>
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="time_format">HH:mm</string>
+
+    <!-- History Edit 历史编辑页面 -->
+    <string name="edit_title">编辑标题</string>
+    <string name="hint_new_title">请输入新标题</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="title_updated">标题已更新</string>
+    <string name="title_empty_error">标题不能为空</string>
+    <string name="has_no_data">没有历史记录</string>
+
+    <!-- History Selection and Delete 历史记录选择和删除界面 -->
+    <string name="select_mode">选择</string>
+    <string name="exit_selection">退出</string>
+    <string name="select_all">全选</string>
+    <string name="delete">删除</string>
+    <string name="delete_confirm">确认删除</string>
+    <string name="delete_confirm_message">确定要删除 %d 条记录吗？</string>
+    <string name="delete_completed">已删除 %d 条记录</string>
+    <string name="selection_title">选择项目</string>
+    <string name="selected_count">已选择 %d 项</string>
+    <string name="history">历史记录</string>
+    <string name="item_detail_message">项目 %d</string>
+    <!-- History Display Activity -->
+    <string name="history_detail">历史详情</string>
+    <string name="title">标题</string>
+    <string name="qr_code_content">二维码内容</string>
+    <string name="type_youtube">YouTube</string>
+    <string name="type_calendar">日历</string>
+    <string name="type_text">文本</string>
+    <string name="content_label">内容</string>
+
+    <!-- Save to Gallery 保存到相册 -->
+    <string name="saved_to_gallery">已保存到相册</string>
+    <string name="save_failed">保存失败：%s</string>
+    <string name="qr_code_not_found">二维码未找到</string>
+    <string name="permission_denied">权限被拒绝</string>
+
+    <!-- Scan Result 扫描结果 -->
+    <string name="scan_result">扫描结果</string>
+    <string name="result_youtube">YouTube</string>
+    <string name="result_calendar">日历事件</string>
+    <string name="result_text">文本</string>
+    <string name="open">打开</string>
+    <string name="add_to_calendar">添加到日历</string>
+
+    <!-- Gallery 相册-->
+    <string name="gallery">相册</string>
+
+    <!-- Errors 错误提示-->
+    <string name="error_record_not_found">记录不存在</string>
+    <string name="error_qr_image_not_found">二维码图片不存在</string>
+    <string name="error_generation_failed">生成失败</string>
+    <string name="error_no_history">暂无历史记录</string>
+    <string name="error_permission_refused">权限被拒绝</string>
+    <string name="error_invalid_calendar_data">无效的日历数据</string>
+    <string name="error_save_unknown">未知错误</string>
+    <string name="error_save_media_entry">创建媒体条目失败</string>
+
+    <!-- Tab Labels 主页底部状态栏标签 -->
+    <string name="tab_scan">扫描</string>
+    <string name="tab_create">创建</string>
+
+    <!-- Toast Messages  提示信息-->
+    <string name="toast_insert_success">插入成功！</string>
+    <string name="untitled">无标题</string>
+
+    <!-- Create Types 创建类型 -->
+    <string name="create_type_youtube">YouTube</string>
+    <string name="create_type_calendar">日历</string>
+    <string name="content_start">开始</string>
+    <string name="content_end">结束</string>
+    <string name="calendarQR_generated">生成日历二维码成功</string>
+</resources>
