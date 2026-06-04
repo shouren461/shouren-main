@@ -5,11 +5,11 @@ enum class RecordType{
 
 //简化的历史记录数据模型，统一了数据库存储和界面显示
 data class HistoryItem(
-    val id:Long = -1L,
-    val  title: String ,
+    var id:Long = -1L,
+    val  title: String,
     val content: String,
     val format: RecordType,
     val timestamp:Long = System.currentTimeMillis(),
-    val isSelected: Boolean  = false  //默认是普通模式
+    var isSelected: Boolean  = false  //默认是普通模式
 )
 

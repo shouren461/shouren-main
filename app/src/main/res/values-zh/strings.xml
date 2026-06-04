@@ -77,7 +77,7 @@
     <string name="content_label">内容</string>
 
     <!-- Save to Gallery 保存到相册 -->
-    <string name="saved_to_gallery">已保存到相册</string>
+    <string name="saved_picture">已保存到相册</string>
     <string name="save_failed">保存失败：%s</string>
     <string name="qr_code_not_found">二维码未找到</string>
     <string name="permission_denied">权限被拒绝</string>

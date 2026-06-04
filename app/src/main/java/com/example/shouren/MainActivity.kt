@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.shouren.activity.BaseActivity
 import com.example.shouren.functions.createFunction.CreateFragment
-import com.example.shouren.functions.historyFunction.HistoryFragment
+import com.example.shouren.functions.historyFunction.HistoryMainFragment
 import com.example.shouren.functions.scanFunction.ScanFragment
 import com.example.shouren.utils.Constant
 
@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
 
     //初始化Fragment资源
     private var createFragment: CreateFragment? = null
-    private var historyFragment: HistoryFragment? = null
+    private var historyMainFragment: HistoryMainFragment? = null
     private var scanFragment: ScanFragment? = null
     //返回布局资源
     override fun getLayout(): Int { return R.layout.activity_main; }
@@ -118,10 +118,10 @@ class MainActivity : BaseActivity() {
                 scanFragment = mayExistFragment
             }
         }
-        if (historyFragment == null) {
+        if (historyMainFragment == null) {
             val maybeExistFragment = supportFragmentManager.findFragmentByTag("f2")
-            if (maybeExistFragment is HistoryFragment) {
-                historyFragment = maybeExistFragment
+            if (maybeExistFragment is HistoryMainFragment) {
+                historyMainFragment = maybeExistFragment
             }
         }
         if (createFragment == null) {
@@ -132,7 +132,7 @@ class MainActivity : BaseActivity() {
         }
 
             //2,先隐藏所有已存在的Fragment
-        historyFragment?.let { fragmentTransaction.hide(it) }
+        historyMainFragment?.let { fragmentTransaction.hide(it) }
         createFragment?.let { fragmentTransaction.hide(it) }
         scanFragment?.let { fragmentTransaction.hide(it) }
             //3,根据点击的类型显示对应的Fragment
@@ -155,11 +155,11 @@ class MainActivity : BaseActivity() {
                 }
 
                 TAB_TYPE_HISTORY -> {
-                    if (historyFragment == null) {
-                        historyFragment = HistoryFragment()
-                        fragmentTransaction.add(R.id.fl_fragment_holder, historyFragment!!, "f3")
+                    if (historyMainFragment == null) {
+                        historyMainFragment = HistoryMainFragment()
+                        fragmentTransaction.add(R.id.fl_fragment_holder, historyMainFragment!!, "f3")
                     } else {
-                        fragmentTransaction.show(historyFragment!!)
+                        fragmentTransaction.show(historyMainFragment!!)
                     }
                 }
 

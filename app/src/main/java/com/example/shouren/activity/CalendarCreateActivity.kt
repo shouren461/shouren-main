@@ -14,7 +14,6 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import com.example.shouren.activity.BaseActivity
 import com.example.shouren.R
 import com.example.shouren.functions.createFunction.CalendarModel
 import com.example.shouren.utils.PictureHelper
@@ -281,7 +280,7 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     private fun saveQR(bitmap: Bitmap){
         when(val  result  = PictureHelper.savePicture(this,bitmap)){
             is PictureHelper.SaveInfo.Success -> {
-                Toast.makeText(this,getString(R.string.saved_to_gallery), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.saved_picture), Toast.LENGTH_SHORT).show()
             }
             is PictureHelper.SaveInfo.Error ->{
                 Toast.makeText(this,getString(R.string.save_failed, result.message), Toast.LENGTH_SHORT).show()

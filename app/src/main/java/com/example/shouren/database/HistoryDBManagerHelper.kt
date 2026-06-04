@@ -1,13 +1,14 @@
 package com.example.shouren.database
 
 import android.content.ContentValues
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.fragment.app.FragmentActivity
 import com.google.common.collect.Table
 import org.checkerframework.dataflow.qual.Pure
 
-class HistoryDBManagerHelper(context: FragmentActivity?, version: Int): SQLiteOpenHelper(context, DB_NAME,null,DB_VERSION) {
+class HistoryDBManagerHelper(context: Context, version: Int): SQLiteOpenHelper(context, DB_NAME,null,DB_VERSION) {
     companion object{
         const val DB_NAME = "history.db";
         private const val DB_VERSION = 1
@@ -24,7 +25,7 @@ class HistoryDBManagerHelper(context: FragmentActivity?, version: Int): SQLiteOp
         //扫描历史记录表
         db?.execSQL(
             "CREATE TABLE ${SCAN_TABLE_NAME} (" +
-                "${ID} TEXT ," +
+                "${ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "${CONTENT} TEXT," +
                 "${FORMAT} TEXT, "+
                 "${TITLE} TEXT,"+
@@ -32,7 +33,7 @@ class HistoryDBManagerHelper(context: FragmentActivity?, version: Int): SQLiteOp
         )
         //创建历史记录表
         db?.execSQL( "CREATE TABLE ${CREATE_TABLE_NAME} (" +
-                "${ID} TEXT ," +
+                "${ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "${CONTENT} TEXT," +
                 "${FORMAT} TEXT, "+
                 "${TITLE} TEXT,"+
@@ -83,23 +84,23 @@ class HistoryDBManagerHelper(context: FragmentActivity?, version: Int): SQLiteOp
     }
 
     //根据id查询单条历史记录
-    fun select(id:Long, tableName: String): List<HistoryItem>{
-        val list = mutableListOf<HistoryItem>()
+    fun selectById(id:Long, tableName: String): HistoryItem?{
+        var item: HistoryItem? = null
         val cursor =
             readableDatabase.query(tableName, null, "$ID = ?", arrayOf(id.toString()), null, null, null)
         
         cursor?.use{
-            while (it.moveToNext()){
-                 list.add(HistoryItem(
+            if (it.moveToFirst()){
+                 item = HistoryItem(
                     id = it.getLong(it.getColumnIndexOrThrow(ID)),
                     title = it.getString(it.getColumnIndexOrThrow(TITLE)),
                     content = it.getString(it.getColumnIndexOrThrow(CONTENT)),
                     format = RecordType.valueOf(it.getString(it.getColumnIndexOrThrow(FORMAT))),
                     timestamp =it.getLong(it.getColumnIndexOrThrow(TIMESTAMP))
-                ))
+                )
             }
         }
-        return list;
+        return item
     }
 
 }
