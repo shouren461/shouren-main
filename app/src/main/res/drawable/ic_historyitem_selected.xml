@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+android:width="24dp"
+android:height="24dp"
+android:viewportWidth="24"
+android:viewportHeight="24">
+<!-- 正方形背景 -->
+<path
+    android:fillColor="#FFC107"
+    android:pathData="M2,2 h20 v20 h-20 z" />
+<!-- 黑色对勾 -->
+<path
+    android:fillColor="#000000"
+    android:pathData="M9.5,16.17 L5.33,12l-1.42,1.41 L9.5,19 20.5,8.09 19.09,6.67z" />
+</vector>
