@@ -45,7 +45,6 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
 
     override fun initData() {
       dbManager = HistoryDBManagerHelper(this,1)
-        initHistoryItemList()    //加载初始化视图列表
     }
 
     override fun initView() {
@@ -56,6 +55,7 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
         ivQR = findViewById(R.id.ivQR)
         btnSave = findViewById(R.id.btnSave)
         btnShare = findViewById(R.id.btnShare)
+        initHistoryItemList()    // 加载并渲染数据到已初始化的视图上
     }
     //绑定监听事件
     override fun initAction() {
@@ -67,16 +67,14 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     private fun initHistoryItemList() {
         val itemId = intent.getLongExtra(HISTORY_ITEM_ID,-1L)
         val tableName = intent.getStringExtra(TABLE_NAME) ?: HistoryDBManagerHelper.SCAN_TABLE_NAME
-        val historyItems = dbManager.getAll(tableName)
-        for (item in historyItems) {
-            item.id = itemId
-            currentItem?.id = itemId
-            if (currentItem ?.id != null){
-                showItemListDetail(currentItem)
-            }else{
-                Toast.makeText(this,getString(R.string.error_record_not_found), Toast.LENGTH_SHORT).show()
-                finish()
-            }
+        
+        currentItem = dbManager.selectById(itemId, tableName)
+        
+        if (currentItem != null){
+            showItemListDetail(currentItem)
+        } else {
+            Toast.makeText(this,getString(R.string.error_record_not_found), Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
     //展示列表信息，包括图标，图标类型，标题，二维码
@@ -102,6 +100,7 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
         //生成二维码
         if (item != null) {
             currentQRBitmap = QRHelper.createQRBitmap(item.content)
+            ivQR.setImageBitmap(currentQRBitmap)
         }
     }
 

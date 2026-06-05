@@ -91,10 +91,11 @@ class HistoryListAdapter(
             }
         }
         //4,处理长按事件 ->仅在普通模式下长按进入编辑模式
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.itemView.setOnLongClickListener {
             if (!isEditMode){
                 onFeedback(Feedback.LongPress(historyItem))
             }
+            true
         }
         //5,
 

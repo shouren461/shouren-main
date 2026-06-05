@@ -61,8 +61,13 @@ class HistoryListFragment: Fragment(){
         initView()
         updateRCVList()
     }
+    //每次点击进入历史记录界面回自动刷新
+    override fun onResume() {
+        super.onResume()
+        updateRCVList()
+    }
     //更新列表数据:从数据库拉取最新数据，并同步到适配器中刷新UI
-    private fun updateRCVList() {
+     fun updateRCVList() {
        historyItems =  dbManager.getAll(tableName).toMutableList()
         adapter.updateRCVList(historyItems)
     }
@@ -100,8 +105,18 @@ class HistoryListFragment: Fragment(){
         //2,刷新所有列表状态
         adapter.notifyDataSetChanged()
     }
-    
-  
+    //执行全选或者全去取消操作
+    fun selectAll(isAllSelected: Boolean){
+        for (item in historyItems) {
+            item.isSelected = isAllSelected
+        }
+        adapter.notifyDataSetChanged()  //通知适配器数据已经发生了改变，刷新UI状态
+    }
+
+    //获取当前页面的所有历史记录项
+    fun getHistoryItems():List<HistoryItem> {
+        return historyItems
+    }
     //批量删除列表项
     fun deleteSelectedItem() {
         //1,过滤掉所有的当前被勾选的ids集合
@@ -116,4 +131,6 @@ class HistoryListFragment: Fragment(){
         //3,刷新列表数据
         updateRCVList()
     }
+
+
 }

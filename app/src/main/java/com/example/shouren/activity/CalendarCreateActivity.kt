@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.health.connect.TimeRangeFilter
 import android.icu.util.Calendar
 import android.view.View
 import android.widget.Button
@@ -15,7 +16,11 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shouren.R
+import com.example.shouren.database.HistoryDBManagerHelper
+import com.example.shouren.database.HistoryItem
+import com.example.shouren.database.RecordType
 import com.example.shouren.functions.createFunction.CalendarModel
+import com.example.shouren.functions.historyFunction.HistoryListFragment
 import com.example.shouren.utils.PictureHelper
 import com.example.shouren.utils.QRHelper
 import java.time.LocalDateTime
@@ -44,6 +49,8 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     private val calendarModel = CalendarModel()
     //引入二维码位图
     private var calendarQRBitmap: Bitmap ?= null
+    //定义二维码数据库工具类
+    private lateinit var dbManager: HistoryDBManagerHelper
 
     companion object {
         private const val DATE_START = 1
@@ -70,6 +77,7 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
         calendar_end = Calendar.getInstance()
         calendar_end.add(Calendar.HOUR_OF_DAY,1)
         calendar_temp = Calendar.getInstance()
+        dbManager = HistoryDBManagerHelper(this,1)
     }
 
     //初始化视图
@@ -258,12 +266,26 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
             iv_qr.setImageBitmap(calendarQRBitmap)
             btnSave.visibility = View.VISIBLE
             btnShare.visibility = View.VISIBLE
+            saveRecord()
             Toast.makeText(this,R.string.calendar_generated, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.toast_insert_calendar_record_success), Toast.LENGTH_SHORT).show()
         }else{
            //创建二维码失败提示
             Toast.makeText(this,R.string.error_generation_failed, Toast.LENGTH_SHORT).show()
         }
     }
+    //保存创建二维码的历史记录
+    private fun saveRecord() {
+       val item = HistoryItem(
+           title = calendarModel.title,
+           content = calendarModel.getQRContent(),
+           format = RecordType.CALENDAR,
+           timestamp = System.currentTimeMillis()
+           )
+        dbManager.insert(HistoryDBManagerHelper.CREATE_TABLE_NAME,item)  //列表适配器自动刷新列表展示
+
+    }
+
     //获取当前日历信息，用来
     private fun calendarToLocalDateTime(calendar: Calendar): LocalDateTime {
         return LocalDateTime.of(

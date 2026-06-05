@@ -54,6 +54,7 @@ class HistoryMainFragment: Fragment() {
     private fun initView() {
         viewPage2.adapter = tabAdapter
 
+        setupTooBar()
         //绑定TabLayout 和ViewPager2,设置两个Tab的标题文字
         TabLayoutMediator(tabLayOut,viewPage2){tab,position ->
             tab.text =
@@ -61,15 +62,14 @@ class HistoryMainFragment: Fragment() {
             {getString(R.string.tab_scan)}
             else
             { getString(R.string.tab_create)}
+        }.attach()
 
-            setupTooBar()
-            //扫描与创建历史tab相互切换时，自动重置为normal模式
-            viewPage2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-                override fun onPageSelected(position: Int) {
-                    switchMode(PageMode.NORMAL)
-                }
-            })
-        }
+        //扫描与创建历史tab相互切换时，自动重置为normal模式
+        viewPage2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                switchMode(PageMode.NORMAL)
+            }
+        })
     }
     //配置ToolBar使其支持顶部菜单
     private fun setupTooBar() {
@@ -104,13 +104,23 @@ class HistoryMainFragment: Fragment() {
     //处理顶部菜单栏的点击事件
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.delete_mode -> switchMode(PageMode.NORMAL)  //点击垃圾桶图标进入编辑模式
+            R.id.delete_mode -> switchMode(PageMode.EDIT)  //点击垃圾桶图标进入编辑模式
             R.id.cancel ->switchMode(PageMode.NORMAL)        //编辑模式下点击取消图标返回普通模式
             R.id.delete_confirm -> deleteConfirm()            //用户勾选菜单项  ->执行删除
+            R.id.selectAll ->selectAllItems()
         }
         return super.onOptionsItemSelected(item)
     }
-    //
+    //执行全选逻辑
+    private fun selectAllItems() {
+        val currentFragment = childFragmentManager.findFragmentByTag("f"+viewPage2.currentItem) as? HistoryListFragment
+        //判断当前页是否已经全选
+        val isAllSelected = currentFragment?.getHistoryItems()?.all { it.isSelected } ?: false
+        //如果没有全选就执行全选逻辑,如果已经全选则直接反选
+        currentFragment?.selectAll(!isAllSelected)
+    }
+
+    //执行删除选中项
     private fun deleteConfirm() {
        val currentFragment = childFragmentManager.findFragmentByTag("f"+viewPage2.currentItem) as? HistoryListFragment
         currentFragment?.deleteSelectedItem()    //调用子Fragment删除选中的数据项

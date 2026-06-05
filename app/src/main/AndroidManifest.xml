@@ -43,7 +43,7 @@
         <!--注册两个二维码创建类-->
         <activity android:name="com.example.shouren.activity.YoutubeCreateActivity" />
         <activity android:name="com.example.shouren.activity.CalendarCreateActivity" />
-
+        <activity android:name="com.example.shouren.functions.historyFunction.HistoryRCVDetail"/>
         <!--添加FileProvider文件分享配置-->
         <provider
             android:name="androidx.core.content.FileProvider"

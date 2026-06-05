@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--设置滚动视图列表项-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="内容"
-            android:textSize="30dp"
-            android:gravity="center"
+            android:textSize="20dp"
+            android:gravity="left"
             android:maxLines="1"
             android:ellipsize="end"
             />
@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="类别"
-            android:textSize="30dp"
-            android:gravity="center"
+            android:textSize="20dp"
+            android:gravity="left"
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_marginTop="10dp"
@@ -53,8 +53,8 @@
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivArrow"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

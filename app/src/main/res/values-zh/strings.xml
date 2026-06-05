@@ -109,9 +109,11 @@
 
     <!-- Toast Messages  提示信息-->
     <string name="toast_insert_success">插入成功！</string>
+    <string name="toast_insert_calendar_record_success">插入Calendar记录成功</string>
     <string name="untitled">无标题</string>
 
     <!-- Create Types 创建类型 -->
     <string name="create_type_youtube">YouTube</string>
     <string name="create_type_calendar">日历</string>
+    <string name="toast_insert_youtube_record_success">新增Youtube记录成功</string>
 </resources>

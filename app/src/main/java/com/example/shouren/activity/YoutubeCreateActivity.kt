@@ -10,6 +10,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shouren.R
+import com.example.shouren.database.HistoryDBManagerHelper
+import com.example.shouren.database.HistoryItem
+import com.example.shouren.database.RecordType
 import com.example.shouren.functions.createFunction.YoutubeModel
 import com.example.shouren.functions.createFunction.YoutubeType
 import com.example.shouren.utils.PictureHelper
@@ -38,6 +41,8 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
     private val youtubeModel = YoutubeModel()
     //Youtube二维码位图
     private var youtubeQRBitMap: Bitmap ?= null
+    //定义数据库管理器
+    private lateinit var dbManager: HistoryDBManagerHelper
     //获取布局资源
     override fun getLayout(): Int { return R.layout.activity_youtube_create }
 
@@ -52,6 +57,7 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
         iv_qr = findViewById(R.id.iv_qr)
         btnSave = findViewById(R.id.btnSave)
         btnShare = findViewById(R.id.btnShare)
+        dbManager = HistoryDBManagerHelper(this,1)
     }
 
     override fun initView() {
@@ -85,6 +91,15 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
             iv_qr.setImageBitmap(youtubeQRBitMap)
             btnSave.visibility = View.VISIBLE
             btnShare.visibility = View.VISIBLE
+            //保存加载入创建数据表
+            val item = HistoryItem(
+                title = youtubeModel.input,
+                content = youtubeModel.getContent(),
+                format = RecordType.YOUTUBE,
+                timestamp = System.currentTimeMillis()
+            )
+            dbManager.insert(HistoryDBManagerHelper.CREATE_TABLE_NAME,item)  //进入创建历史记录页面自动刷新数据
+            Toast.makeText(this,getString(R.string.toast_insert_youtube_record_success), Toast.LENGTH_SHORT).show()
         }
     }
     //点击事件
