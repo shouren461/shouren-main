@@ -23,6 +23,7 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     private  lateinit var ivIcon: ImageView
     private  lateinit var tvType: TextView
     private  lateinit var tvTitle: TextView
+    private  lateinit var tvContent: TextView
     private  lateinit var ivQR: ImageView
     private  lateinit var btnSave: Button
     private  lateinit var btnShare: Button
@@ -52,10 +53,15 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
         ivIcon = findViewById(R.id.ivIcon)
         tvType = findViewById(R.id.tvType)
         tvTitle = findViewById(R.id.tvTitle)
+        tvContent = findViewById(R.id.tvContent)
         ivQR = findViewById(R.id.ivQR)
         btnSave = findViewById(R.id.btnSave)
         btnShare = findViewById(R.id.btnShare)
-        initHistoryItemList()    // 加载并渲染数据到已初始化的视图上
+
+        //使用post确保在下一帧执行，此时视图肯定已经完全布局且变量已赋值
+        window.decorView.post {
+            initHistoryItemList()
+        }
     }
     //绑定监听事件
     override fun initAction() {
@@ -81,6 +87,7 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     private fun showItemListDetail(item: HistoryItem?) {
         if (item != null) {
             tvTitle.text = item.title
+            tvContent.text = item.content
         }
         //生成标题和图标
         if (item != null) {

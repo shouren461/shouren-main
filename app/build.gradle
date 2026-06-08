@@ -51,4 +51,6 @@ dependencies {
     implementation(libs.zxing.core)
     implementation(libs.mlkit.barcode.scanning)
     implementation("com.github.bumptech.glide:glide:5.0.5")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")     //引入Zxing-android-embedded组件库
+
 }

@@ -78,7 +78,7 @@ class HistoryMainFragment: Fragment() {
         setHasOptionsMenu(true)   //告诉系统此Fragment有自定义菜单
     }
     //切换模式 ->切换到指定的模式
-    private fun switchMode(mode: PageMode) {
+     fun switchMode(mode: PageMode) {   //这里需要让子fragment能够调用
         currentMode = mode
         //1,通知系统刷新顶部菜单(onCreateOptionsMenu回被重新调用)
         activity ?.invalidateOptionsMenu()

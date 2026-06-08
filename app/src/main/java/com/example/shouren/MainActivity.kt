@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
 
             //扫描功能入口，目前处在尚未开放状态
             findViewById<View>(R.id.bottom_scan).setOnClickListener {
-                Toast.makeText(this, "该功能暂未开放", Toast.LENGTH_SHORT).show()
+                onBottomTabSelect(TAB_TYPE_SCAN)
             }
             //历史Tab,点击监听
             findViewById<View>(R.id.bottom_history).setOnClickListener {

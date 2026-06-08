@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SHOUREN</string>
+    <string name="app_name">二维码扫描工具</string>
 
     <!--YouTube Create Activity-->
     <string name="create">创建</string>
@@ -30,6 +30,7 @@
 
 
 <!-- 文本框Hints事件提示  -->
+    <string name="calendar_events">日历事件</string>
     <string name="hint_calendar_title">请输入事件标题</string>
     <string name="hint_calendar_location">请输入地点</string>
     <string name="hint_calendar_description">请输入事件描述</string>
@@ -88,7 +89,7 @@
     <string name="result_calendar">日历事件</string>
     <string name="result_text">文本</string>
     <string name="open">打开</string>
-    <string name="add_to_calendar">添加到日历</string>
+    <string name="add_to_calendar">新建日程</string>
 
     <!-- Gallery 相册-->
     <string name="gallery">相册</string>
@@ -104,6 +105,7 @@
     <string name="error_save_media_entry">创建媒体条目失败</string>
 
     <!-- Tab Labels 主页底部状态栏标签 -->
+    <string name="error_link_is_not_clickable">链接不可打开</string>
     <string name="tab_scan">扫描</string>
     <string name="tab_create">创建</string>
 
@@ -113,6 +115,9 @@
     <string name="untitled">无标题</string>
 
     <!-- Create Types 创建类型 -->
+    <string name="hint_scan_qr">将二维码对齐到框内</string>
+    <string name="toast_require_camera_permission">需要相机权限才能扫码</string>
+    <string name="toast_detected_QRCode">未识别到二维码</string>
     <string name="create_type_youtube">YouTube</string>
     <string name="create_type_calendar">日历</string>
     <string name="toast_insert_youtube_record_success">新增Youtube记录成功</string>

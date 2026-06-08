@@ -96,7 +96,9 @@ class HistoryListFragment: Fragment(){
     }
     //普通模式下长按进入编辑状态
     fun enterEditModel(item: HistoryItem) {
-        onModeChanged(HistoryMainFragment.PageMode.EDIT)
+        //找到他的父fragment,同时调用父fragment的switchMode()方法，实现状态栏菜单自动进入编辑模式
+        (parentFragment as? HistoryMainFragment)?.switchMode(HistoryMainFragment.PageMode.EDIT)
+        //onModeChanged(HistoryMainFragment.PageMode.EDIT)   ->这里父类会自动调用onModeChanged()方法实现模式转换和顶部状态栏编辑模式切换
     }
     //编辑模式下点击/长按改变选中项状态
     fun updateSelectStatus(item: HistoryItem) {
