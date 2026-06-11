@@ -1,25 +1,24 @@
-package com.example.shouren.functions.scanFunction
+package com.example.shouren.activity
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.shouren.R
-import com.example.shouren.database.HistoryItem
 import com.example.shouren.database.RecordType
 import com.example.shouren.functions.createFunction.CalendarModel
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 //扫码详情页 ->作为结果展示的"容器",并根据不同的二码类型提供快捷操作
-class ScanItemDetail: AppCompatActivity() {
+class ScanItemDetailActivity: AppCompatActivity() {
     //定义延迟初始化控件
     private lateinit var ivIconType: ImageView
     private lateinit var tvTypeLabel: TextView
@@ -33,8 +32,8 @@ class ScanItemDetail: AppCompatActivity() {
         private const val EXTRA_RESULT  = "result"
         private const val EXTRA_TYPE = "type"
         //静态启动方法:其他页面调用时必须传入结果和类型
-        fun startActivity(context: Context,result: String,type: RecordType){
-            val intent = Intent(context, ScanItemDetail::class.java)
+        fun startActivity(context: Context, result: String, type: RecordType){
+            val intent = Intent(context, ScanItemDetailActivity::class.java)
             intent.putExtra(EXTRA_RESULT,result)
             intent.putExtra(EXTRA_TYPE,type)
             context.startActivity(intent)
@@ -46,7 +45,7 @@ class ScanItemDetail: AppCompatActivity() {
         setContentView(R.layout.scan_item_detail)
         //1,获取intent传递过来的原始文本和二维码类型
         initResult = intent.getStringExtra(EXTRA_RESULT) ?: ""
-        resultType = intent.getSerializableExtra(EXTRA_TYPE) as? RecordType  ?: RecordType.TEXT
+        resultType = intent.getSerializableExtra(EXTRA_TYPE) as? RecordType ?: RecordType.TEXT
         //2,调用控件绑定方法
         initViews()
         //3,将数据渲染到页面上
@@ -81,9 +80,9 @@ class ScanItemDetail: AppCompatActivity() {
               RecordType.CALENDAR -> {
                 ivIconType.setImageResource(R.drawable.vector_ic_calendar)
                 tvTypeLabel.text = getString(R.string.type_calendar)
-                
+
                 // 解析并显示可读的日程摘要
-                val model = CalendarModel.fromString(initResult)
+                val model = CalendarModel.Companion.fromString(initResult)
                 if (model != null) {
                     val summary = StringBuilder()
                     summary.append("${model.title}\n")
@@ -95,7 +94,7 @@ class ScanItemDetail: AppCompatActivity() {
                 } else {
                     tvContent.text = initResult
                 }
-                
+
                 btnAction.setOnClickListener { addSchedule() }
                 (btnAction as? TextView) ?.text = getString(R.string.add_to_calendar)
             }
@@ -112,9 +111,9 @@ class ScanItemDetail: AppCompatActivity() {
     // 辅助方法：格式化日程时间范围
     private fun formatDateTime(model: CalendarModel): String {
         val formatter = if (model.isAllDay)
-            java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            DateTimeFormatter.ofPattern("yyyy-MM-dd")
         else
-            java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
         return "${model.startTime.format(formatter)} - ${model.endTime.format(formatter)}"
     }
@@ -131,7 +130,7 @@ class ScanItemDetail: AppCompatActivity() {
     //新建日程操作 ->将解析出的iCalendar数据写入手机系统日历
     fun addSchedule() {
         //调用日历模型的解析器
-        val calendarModel = CalendarModel.fromString(initResult) ?: return
+        val calendarModel = CalendarModel.Companion.fromString(initResult) ?: return
         //创建一个系统日历的插入意图
         val insertIntent = Intent(Intent.ACTION_INSERT).apply {
             setDataAndType(CalendarContract.CONTENT_URI, "vnd.android.cursor.dir/event")  //setDataAndType()精确的勾起日历应用响应
@@ -140,13 +139,13 @@ class ScanItemDetail: AppCompatActivity() {
             putExtra(CalendarContract.Events.EVENT_LOCATION,calendarModel.location)
 
             calendarModel.startTime?.let {
-                val calendar = java.util.Calendar.getInstance()
+                val calendar = Calendar.getInstance()
                 calendar.set(it.year, it.monthValue - 1, it.dayOfMonth, it.hour, it.minute)
                 putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.timeInMillis)
             }
             // 同时设置结束时间
             calendarModel.endTime?.let {
-                val calendar = java.util.Calendar.getInstance()
+                val calendar = Calendar.getInstance()
                 calendar.set(it.year, it.monthValue - 1, it.dayOfMonth, it.hour, it.minute)
                 putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendar.timeInMillis)
             }

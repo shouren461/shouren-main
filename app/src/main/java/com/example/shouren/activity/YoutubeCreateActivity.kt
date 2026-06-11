@@ -25,15 +25,15 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
         private const val CATEGORY_CHANNEL = 3;
     }
     //定义延迟初始化控件
-    private lateinit var iv_back: ImageView
-    private lateinit var tv_create: TextView
-    private lateinit var tv_category_url: TextView
-    private lateinit var tv_category_video: TextView
-    private lateinit var tv_category_channel: TextView
-    private lateinit var et_input: EditText
-    private lateinit var ll_mode: LinearLayout
+    private lateinit var ivBack: ImageView
+    private lateinit var tvCreate: TextView
+    private lateinit var tvCategoryUrl: TextView
+    private lateinit var tvCategoryVideo: TextView
+    private lateinit var tvCategoryChannel: TextView
+    private lateinit var etInput: EditText
+    private lateinit var llMode: LinearLayout
     //新增二维码视图按钮  保存按钮  分享按钮
-    private lateinit var iv_qr: ImageView
+    private lateinit var ivQr: ImageView
     private lateinit var btnSave: Button
     private lateinit var btnShare: Button
     private var category: Int =CATEGORY_VIDEO
@@ -47,14 +47,14 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
     override fun getLayout(): Int { return R.layout.activity_youtube_create }
 
     override fun initData() {
-        iv_back =findViewById(R.id.ivBack)
-        tv_create = findViewById(R.id.tv_create)
-        tv_category_url = findViewById(R.id.tvUrl)
-        tv_category_video = findViewById(R.id.tvVideo)
-        tv_category_channel = findViewById(R.id.tvChannel)
-        et_input = findViewById(R.id.et_input)
-        ll_mode =findViewById(R.id.llMode)
-        iv_qr = findViewById(R.id.iv_qr)
+        ivBack =findViewById(R.id.ivBack)
+        tvCreate = findViewById(R.id.tv_create)
+        tvCategoryUrl = findViewById(R.id.tvUrl)
+        tvCategoryVideo = findViewById(R.id.tvVideo)
+        tvCategoryChannel = findViewById(R.id.tvChannel)
+        etInput = findViewById(R.id.et_input)
+        llMode =findViewById(R.id.llMode)
+        ivQr = findViewById(R.id.iv_qr)
         btnSave = findViewById(R.id.btnSave)
         btnShare = findViewById(R.id.btnShare)
         dbManager = HistoryDBManagerHelper(this,1)
@@ -66,21 +66,21 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
     }
 
     override fun initAction() {
-        iv_back.setOnClickListener(this);
-        tv_create.setOnClickListener(this)
-        tv_category_url.setOnClickListener(this);
-        tv_category_video.setOnClickListener(this)
-        tv_category_channel.setOnClickListener(this)
-        et_input.setOnClickListener(this)
+        ivBack.setOnClickListener(this);
+        tvCreate.setOnClickListener(this)
+        tvCategoryUrl.setOnClickListener(this);
+        tvCategoryVideo.setOnClickListener(this)
+        tvCategoryChannel.setOnClickListener(this)
+        etInput.setOnClickListener(this)
         btnSave.setOnClickListener(this)
         btnShare.setOnClickListener(this)
     }
 
     //创建二维码事件
     private fun createQR(){
-        val inputStr = et_input.text?.toString()?.trim() ?:""
+        val inputStr = etInput.text?.toString()?.trim() ?:""
         if (inputStr.isEmpty()){
-            et_input.error = getString(R.string.error_empty_input)
+            etInput.error = getString(R.string.error_empty_input)
             return
         }
         youtubeModel.input = inputStr
@@ -88,7 +88,7 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
         //跳转到二维码结果展示页
         //生成结果并跳转到结果展示界面 @param isHistory 标记是否查看历史记录
         if (youtubeQRBitMap != null){
-            iv_qr.setImageBitmap(youtubeQRBitMap)
+            ivQr.setImageBitmap(youtubeQRBitMap)
             btnSave.visibility = View.VISIBLE
             btnShare.visibility = View.VISIBLE
             //保存加载入创建数据表
@@ -110,35 +110,35 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
             R.id.tvUrl -> {
                 category = CATEGORY_URL
                 youtubeModel.type = YoutubeType.URL
-                et_input.hint = getString(R.string.hint_youtube_url)
-                tv_category_url.setBackgroundResource(R.drawable.bg_mode_selected)
-                tv_category_url.setTextColor(getColor(R.color.white))
-                tv_category_video.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_video.setTextColor(getColor(R.color.black))
-                tv_category_channel.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_channel.setTextColor(getColor(R.color.black))
+                etInput.hint = getString(R.string.hint_youtube_url)
+                tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selected)
+                tvCategoryUrl.setTextColor(getColor(R.color.white))
+                tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryVideo.setTextColor(getColor(R.color.black))
+                tvCategoryChannel.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryChannel.setTextColor(getColor(R.color.black))
             }
             R.id.tvVideo ->{
                 category = CATEGORY_VIDEO
                 youtubeModel.type = YoutubeType.VIDEO
-                et_input.hint = getString(R.string.hint_youtube_video_id)
-                tv_category_url.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_url.setTextColor(getColor(R.color.black))
-                tv_category_video.setBackgroundResource(R.drawable.bg_mode_selected)
-                tv_category_video.setTextColor(getColor(R.color.white))
-                tv_category_channel.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_channel.setTextColor(getColor(R.color.black))
+                etInput.hint = getString(R.string.hint_youtube_video_id)
+                tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryUrl.setTextColor(getColor(R.color.black))
+                tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selected)
+                tvCategoryVideo.setTextColor(getColor(R.color.white))
+                tvCategoryChannel.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryChannel.setTextColor(getColor(R.color.black))
             }
             R.id.tvChannel ->{
                 category = CATEGORY_CHANNEL
                 youtubeModel.type = YoutubeType.CHANNEL
-                et_input.hint = getString(R.string.hint_youtube_channel_url)
-                tv_category_url.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_url.setTextColor(getColor(R.color.black))
-                tv_category_video.setBackgroundResource(R.drawable.bg_mode_selection)
-                tv_category_video.setTextColor(getColor(R.color.black))
-                tv_category_channel.setBackgroundResource(R.drawable.bg_mode_selected)
-                tv_category_channel.setTextColor(getColor(R.color.white))
+                etInput.hint = getString(R.string.hint_youtube_channel_url)
+                tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryUrl.setTextColor(getColor(R.color.black))
+                tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selection)
+                tvCategoryVideo.setTextColor(getColor(R.color.black))
+                tvCategoryChannel.setBackgroundResource(R.drawable.bg_mode_selected)
+                tvCategoryChannel.setTextColor(getColor(R.color.white))
             }
             //保存按钮
             R.id.btnSave ->{

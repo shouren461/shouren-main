@@ -117,8 +117,12 @@
     <!-- Create Types 创建类型 -->
     <string name="hint_scan_qr">将二维码对齐到框内</string>
     <string name="toast_require_camera_permission">需要相机权限才能扫码</string>
-    <string name="toast_detected_QRCode">未识别到二维码</string>
+    <string name="toast_detected_QRCode">识别到二维码</string>
+    <string name="toast_not_detected_QRCode">未识别到二维码</string>
+    <string name="toast_camera_boot_failed">相机启动失败</string>
+    <string name="toast_photo_token_Failed">拍照失败</string>
     <string name="create_type_youtube">YouTube</string>
     <string name="create_type_calendar">日历</string>
     <string name="toast_insert_youtube_record_success">新增Youtube记录成功</string>
+    <string name="toast_photo_token_successfully">拍照成功，已保存至相册</string>
 </resources>

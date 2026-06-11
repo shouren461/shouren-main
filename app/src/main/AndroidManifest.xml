@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--获取网络请求权限,写入文件权限，读取文件权限-->
+    <uses-feature android:name="android.hardware.camera.any" /> <!--确保配备相机，可以是前置摄像头，也可以是后置摄像头-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
     <!-- Android 13+ 照片权限 -->
@@ -47,8 +49,8 @@
         <!--注册两个二维码创建类-->
         <activity android:name="com.example.shouren.activity.YoutubeCreateActivity" />
         <activity android:name="com.example.shouren.activity.CalendarCreateActivity" />
-        <activity android:name="com.example.shouren.functions.historyFunction.HistoryRCVDetail"/>
-        <activity android:name="com.example.shouren.functions.scanFunction.ScanItemDetail" />
+        <activity android:name="com.example.shouren.activity.HistoryItemDetailActivity"/>
+        <activity android:name="com.example.shouren.activity.ScanItemDetailActivity" />
         <!--添加FileProvider文件分享配置-->
         <provider
             android:name="androidx.core.content.FileProvider"

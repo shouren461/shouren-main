@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.health.connect.TimeRangeFilter
 import android.icu.util.Calendar
 import android.view.View
 import android.widget.Button
@@ -20,29 +19,28 @@ import com.example.shouren.database.HistoryDBManagerHelper
 import com.example.shouren.database.HistoryItem
 import com.example.shouren.database.RecordType
 import com.example.shouren.functions.createFunction.CalendarModel
-import com.example.shouren.functions.historyFunction.HistoryListFragment
 import com.example.shouren.utils.PictureHelper
 import com.example.shouren.utils.QRHelper
 import java.time.LocalDateTime
 
 class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundButton.OnCheckedChangeListener {
     //1,延迟初始化控件
-    private lateinit var iv_back: ImageView
-    private lateinit var tv_create: TextView
-    private lateinit var et_title: EditText
-    private lateinit var et_location: EditText
-    private lateinit var et_description: EditText
-    private lateinit var tv_start_date: TextView
-    private lateinit var tv_end_date: TextView
+    private lateinit var ivBack: ImageView
+    private lateinit var tvCreate: TextView
+    private lateinit var etTitle: EditText
+    private lateinit var etLocation: EditText
+    private lateinit var etDescription: EditText
+    private lateinit var tvStartDate: TextView
+    private lateinit var tvEndDate: TextView
 
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchAllday: Switch
     private  var isAllDay = false
-    private lateinit var calendar_start: Calendar
-    private lateinit var calendar_end: Calendar
-    private lateinit var calendar_temp: Calendar
-    private lateinit var iv_qr: ImageView
+    private lateinit var calendarStart: Calendar
+    private lateinit var calendarEnd: Calendar
+    private lateinit var calendarTemp: Calendar
+    private lateinit var ivQr: ImageView
     private lateinit var btnSave: Button
     private lateinit var btnShare: Button
     //引入日历模型
@@ -61,22 +59,22 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     //初始化数据逻辑
     @SuppressLint("CutPasteId")
     override fun initData() {
-        iv_back = findViewById(R.id.iv_back)
-        tv_create = findViewById(R.id.tv_create)
-        et_title = findViewById(R.id.etTitle)
-        et_location = findViewById(R.id.etLocation)
-        et_description = findViewById(R.id.etDescription)
-        tv_start_date = findViewById(R.id.tvStartDate)
-        tv_end_date = findViewById(R.id.tvEndDate)
+        ivBack = findViewById(R.id.iv_back)
+        tvCreate = findViewById(R.id.tv_create)
+        etTitle = findViewById(R.id.etTitle)
+        etLocation = findViewById(R.id.etLocation)
+        etDescription = findViewById(R.id.etDescription)
+        tvStartDate = findViewById(R.id.tvStartDate)
+        tvEndDate = findViewById(R.id.tvEndDate)
         switchAllday = findViewById(R.id.switchAllDay) // Added missing initialization
-        iv_qr = findViewById(R.id.iv_qr)
+        ivQr = findViewById(R.id.iv_qr)
         btnSave = findViewById(R.id.btnSave)
         btnShare =findViewById(R.id.btnShare)
 
-        calendar_start = Calendar.getInstance();
-        calendar_end = Calendar.getInstance()
-        calendar_end.add(Calendar.HOUR_OF_DAY,1)
-        calendar_temp = Calendar.getInstance()
+        calendarStart = Calendar.getInstance();
+        calendarEnd = Calendar.getInstance()
+        calendarEnd.add(Calendar.HOUR_OF_DAY,1)
+        calendarTemp = Calendar.getInstance()
         dbManager = HistoryDBManagerHelper(this,1)
     }
 
@@ -92,10 +90,10 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
 
     //初始化监听事件
     override fun initAction() {
-        iv_back.setOnClickListener(this)
-        tv_create.setOnClickListener(this)
-        tv_start_date.setOnClickListener(this)
-        tv_end_date.setOnClickListener(this)
+        ivBack.setOnClickListener(this)
+        tvCreate.setOnClickListener(this)
+        tvStartDate.setOnClickListener(this)
+        tvEndDate.setOnClickListener(this)
         switchAllday.setOnCheckedChangeListener(this)
         btnSave.setOnClickListener(this)
         btnShare.setOnClickListener(this)
@@ -126,22 +124,22 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     //初始化时间
     private fun initDateTime() {
         var start_date =
-            getMonthText(calendar_start.get(Calendar.MONTH)) + " " + calendar_start.get(Calendar.DAY_OF_MONTH) + "  "
+            getMonthText(calendarStart.get(Calendar.MONTH)) + " " + calendarStart.get(Calendar.DAY_OF_MONTH) + "  "
         var end_date =
-            getMonthText(calendar_end.get(Calendar.MONTH)) + " " + calendar_end.get(Calendar.DAY_OF_MONTH) + "  "
+            getMonthText(calendarEnd.get(Calendar.MONTH)) + " " + calendarEnd.get(Calendar.DAY_OF_MONTH) + "  "
 
         if (!isAllDay) {
             //如果不是全天模式要进行时分拼接
-            val startMinute = calendar_start.get(Calendar.MINUTE)
+            val startMinute = calendarStart.get(Calendar.MINUTE)
             val startMinStr = startMinute.toString()
-            val endMinute = calendar_end.get(Calendar.MINUTE)
+            val endMinute = calendarEnd.get(Calendar.MINUTE)
             val endMinStr = endMinute.toString()
-            start_date += calendar_start.get(Calendar.HOUR_OF_DAY).toString() + ":" + startMinStr
-            end_date = calendar_end.get(Calendar.HOUR_OF_DAY).toString() + ":" + endMinStr
+            start_date += this@CalendarCreateActivity.calendarStart.get(Calendar.HOUR_OF_DAY).toString() + ":" + startMinStr
+            end_date = calendarEnd.get(Calendar.HOUR_OF_DAY).toString() + ":" + endMinStr
         }
         //拼接初始时间
-        tv_start_date.text = start_date
-        tv_end_date.text = end_date
+        tvStartDate.text = start_date
+        tvEndDate.text = end_date
     }
     //获取当前日期时间
     private fun getDateTime(category: Int) {
@@ -150,19 +148,19 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
             this,
             { _, hourOfDay, minute ->
                 if (category == DATE_START) {
-                    calendar_start.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    calendar_start.set(Calendar.MINUTE, minute)
+                    calendarStart.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    calendarStart.set(Calendar.MINUTE, minute)
                 } else {
-                    calendar_end.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    calendar_end.set(Calendar.MINUTE, minute)
+                    calendarEnd.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    calendarEnd.set(Calendar.MINUTE, minute)
                 }
                 updateDateTime()
             },
-            if (category == DATE_START) calendar_start.get(Calendar.HOUR_OF_DAY)
-            else calendar_end.get(Calendar.HOUR_OF_DAY),
-            if (category == DATE_START) calendar_start.get(
+            if (category == DATE_START) calendarStart.get(Calendar.HOUR_OF_DAY)
+            else calendarEnd.get(Calendar.HOUR_OF_DAY),
+            if (category == DATE_START) calendarStart.get(
                 Calendar.MINUTE
-            ) else calendar_end.get(Calendar.MINUTE),
+            ) else calendarEnd.get(Calendar.MINUTE),
             true
         )
         //2，日期选择器
@@ -170,13 +168,13 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
             this,
             { _, year, month, dayOfMonth ->
                 if (category == DATE_START) {
-                    calendar_start.set(Calendar.YEAR, year)
-                    calendar_start.set(Calendar.MONTH, month)
-                    calendar_start.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    calendarStart.set(Calendar.YEAR, year)
+                    calendarStart.set(Calendar.MONTH, month)
+                    calendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 } else {
-                    calendar_end.set(Calendar.YEAR, year)
-                    calendar_end.set(Calendar.MONTH, month)
-                    calendar_end.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    calendarEnd.set(Calendar.YEAR, year)
+                    calendarEnd.set(Calendar.MONTH, month)
+                    calendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 }
                 if (!isAllDay) {
                     //如果不是全天模式，日期选择器调用时间选择器
@@ -184,15 +182,15 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
                 }
                 updateDateTime()
             },
-            if (category == DATE_START) calendar_start.get(
+            if (category == DATE_START) calendarStart.get(
                 Calendar.YEAR
-            ) else calendar_end.get(Calendar.YEAR),
-            if (category == DATE_START) calendar_start.get(
+            ) else calendarEnd.get(Calendar.YEAR),
+            if (category == DATE_START) calendarStart.get(
                 Calendar.MONTH
-            ) else calendar_end.get(Calendar.MONTH),
-            if (category == DATE_START) calendar_start.get(
+            ) else calendarEnd.get(Calendar.MONTH),
+            if (category == DATE_START) calendarStart.get(
                 Calendar.DAY_OF_MONTH
-            ) else calendar_end.get(Calendar.DAY_OF_MONTH)
+            ) else calendarEnd.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
     }
@@ -201,34 +199,34 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     private fun updateDateTime() {
         //1,获取时间月日
         var start_date =
-            getMonthText(calendar_start.get(Calendar.MONTH)) + " " + calendar_start.get(Calendar.DAY_OF_MONTH) + "  "
+            getMonthText(calendarStart.get(Calendar.MONTH)) + " " + calendarStart.get(Calendar.DAY_OF_MONTH) + "  "
         var end_date =
-           getMonthText(calendar_end.get(Calendar.MONTH)) + " " + calendar_end.get(Calendar.DAY_OF_MONTH) + "  "
+           getMonthText(calendarEnd.get(Calendar.MONTH)) + " " + calendarEnd.get(Calendar.DAY_OF_MONTH) + "  "
 
         if (!isAllDay) {
                 //2,使用String.format自动补零(%02d表示两位数字不足补0)
                 start_date += String.format("%02d:%02d",
-                    calendar_start.get(Calendar.HOUR_OF_DAY),
-                    calendar_start.get(Calendar.MINUTE))
+                    calendarStart.get(Calendar.HOUR_OF_DAY),
+                    calendarStart.get(Calendar.MINUTE))
                 end_date += String.format("%02d:%02d",
-                    calendar_end.get(Calendar.HOUR_OF_DAY),
-                    calendar_end.get(Calendar.MINUTE))
+                    calendarEnd.get(Calendar.HOUR_OF_DAY),
+                    calendarEnd.get(Calendar.MINUTE))
         }
 
-        if (calendar_start.get(Calendar.DAY_OF_MONTH) != calendar_end.get(Calendar.DAY_OF_MONTH) ||
-            calendar_start.get(Calendar.MONTH) != calendar_end.get(Calendar.MONTH) ||
-            calendar_start.get(Calendar.YEAR) != calendar_end.get(Calendar.YEAR)
+        if (calendarStart.get(Calendar.DAY_OF_MONTH) != calendarEnd.get(Calendar.DAY_OF_MONTH) ||
+            calendarStart.get(Calendar.MONTH) != calendarEnd.get(Calendar.MONTH) ||
+            calendarStart.get(Calendar.YEAR) != calendarEnd.get(Calendar.YEAR)
         ) {
             if (!isAllDay) {
-                end_date = getMonthText(calendar_end.get(Calendar.MONTH)) + " " +
-                        calendar_end.get(Calendar.DAY_OF_MONTH) + "  " + end_date
+                end_date = getMonthText(calendarEnd.get(Calendar.MONTH)) + " " +
+                        calendarEnd.get(Calendar.DAY_OF_MONTH) + "  " + end_date
             }
         }
 
        //3,只要开始和结束年份不一致，或者不是今年，就显示年份
-        val currentYear = calendar_temp.get(Calendar.YEAR)
-        val startYear = calendar_start.get(Calendar.YEAR)
-        val endYear = calendar_end.get(Calendar.YEAR)
+        val currentYear = calendarTemp.get(Calendar.YEAR)
+        val startYear = calendarStart.get(Calendar.YEAR)
+        val endYear = calendarEnd.get(Calendar.YEAR)
         if (startYear != currentYear || startYear != endYear) {
             start_date = "$startYear $start_date"
         }
@@ -236,24 +234,24 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
             end_date = "$endYear $end_date"
         }
 
-        tv_start_date.text = start_date
-        tv_end_date.text = end_date
+        tvStartDate.text = start_date
+        tvEndDate.text = end_date
     }
     //创建二维码
     private fun generateQR() {
-        calendarModel.title = et_title.text.toString().trim()
-        calendarModel.location = et_location.text.toString().trim()
-        calendarModel.description = et_description.text.toString().trim()
+        calendarModel.title = etTitle.text.toString().trim()
+        calendarModel.location = etLocation.text.toString().trim()
+        calendarModel.description = etDescription.text.toString().trim()
 
         // 同步当前开始与结束时间 并赋值日历模型
         calendarModel.isAllDay = isAllDay
-        calendarModel.startTime = calendarToLocalDateTime(calendar_start)
-        calendarModel.endTime = calendarToLocalDateTime(calendar_end)
+        calendarModel.startTime = calendarToLocalDateTime(calendarStart)
+        calendarModel.endTime = calendarToLocalDateTime(calendarEnd)
 
         //检验数据是否有效
         if (!calendarModel.isValid()){
             if (calendarModel.title.isEmpty()){
-                et_title.error = getString(R.string.error_empty_title)
+                etTitle.error = getString(R.string.error_empty_title)
             }
             if (calendarModel.endTime.isBefore(calendarModel.startTime)){
                 Toast.makeText(this,R.string.error_end_before_start, Toast.LENGTH_SHORT).show()
@@ -263,7 +261,7 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
         val qrContent = calendarModel.getQRContent()
         calendarQRBitmap = QRHelper.createQRBitmap(qrContent)
         if (calendarQRBitmap != null){
-            iv_qr.setImageBitmap(calendarQRBitmap)
+            ivQr.setImageBitmap(calendarQRBitmap)
             btnSave.visibility = View.VISIBLE
             btnShare.visibility = View.VISIBLE
             saveRecord()

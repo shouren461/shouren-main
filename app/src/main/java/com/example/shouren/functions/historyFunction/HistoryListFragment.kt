@@ -8,7 +8,7 @@ import com.example.shouren.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shouren.functions.historyFunction.HistoryRCVDetail
+import com.example.shouren.activity.HistoryItemDetailActivity
 import com.example.shouren.database.HistoryDBManagerHelper
 import com.example.shouren.database.HistoryItem
 
@@ -92,7 +92,7 @@ class HistoryListFragment: Fragment(){
 
     //普通模式下点击跳转到详情页面
     private fun clickEvent(item: HistoryItem) {
-        HistoryRCVDetail.startActivity(requireContext(),item.id,tableName);
+        HistoryItemDetailActivity.startActivity(requireContext(),item.id,tableName);
     }
     //普通模式下长按进入编辑状态
     fun enterEditModel(item: HistoryItem) {

@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="12dp"
@@ -87,6 +88,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:text="@string/video_id"
+
                     android:background="@drawable/bg_mode_selected"
                     android:textColor="@color/white"
                     android:textSize="@dimen/cm_dp_25" />

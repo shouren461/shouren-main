@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <!--Zxing 库自带的全功能扫描视图-->
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/view_scan"
@@ -37,4 +38,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

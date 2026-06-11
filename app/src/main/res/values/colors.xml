@@ -9,6 +9,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#333333</color>
+    <color name="scan_frame">#E0E0E0</color>
 
     <!-- SHOUREN 蓝色主题色 -->
     <!-- 主色、深色主色、强调色已在基础颜色中定义，此处不再重复 -->

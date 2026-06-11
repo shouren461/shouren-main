@@ -2,7 +2,6 @@ package com.example.shouren
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -168,5 +167,4 @@ class MainActivity : BaseActivity() {
             //4,提交事务，允许状态丢失(防止极端情况下的崩溃)
             fragmentTransaction.commitAllowingStateLoss()
         }
-
 }

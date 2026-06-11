@@ -21,7 +21,7 @@ data class YoutubeModel(
         }
 
         // 自动识别 Youtube 链接类型
-        fun detectType(text: String): YoutubeType {
+        fun identifyYoutubeType(text: String): YoutubeType {
             return when {
                 text.contains("watch?v=") -> YoutubeType.VIDEO
                 text.contains("@") || text.contains("/channel/") -> YoutubeType.CHANNEL
@@ -36,7 +36,7 @@ data class YoutubeModel(
             input
         }else{
             when(type){
-                YoutubeType.URL -> input // For URL mode, if it's not a youtube link, just use as is
+                YoutubeType.URL -> input
                 YoutubeType.VIDEO ->"$YOUTUBE_URL$input"
                 YoutubeType.CHANNEL -> "$YOUTUBE_CHANNEL$input"
             }

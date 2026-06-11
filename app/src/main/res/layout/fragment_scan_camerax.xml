@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   <androidx.camera.view.PreviewView
+       android:id="@+id/previewView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+
+    <!--扫描框遮盖层-->
+    <View
+        android:id="@+id/dimView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <!--相机预览层-->
+    <FrameLayout
+        android:id="@+id/scanContainer"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:background="@drawable/shape_scan_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        >
+        <!--定义垂直方向上扫描框偏移量-->
+
+        <!--定义扫描线动画效果-->
+       <!-- <View
+            android:id="@+id/scanLine"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimary"
+            />-->
+        <com.example.shouren.functions.scanFunction.ScanLineView
+            android:id="@+id/scanLineView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <!--定义提示文字-->
+    <TextView
+        android:id="@+id/textHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hint_scan_qr"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanContainer"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="60dp"
+        >
+        <ImageView
+            android:id="@+id/ivFlash"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/ic_flash_off"
+            />
+        <ImageView
+            android:id="@+id/ivCapture"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_camera_shutter"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            />
+        <ImageView
+            android:id="@+id/btnToAlbum"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_vector_album"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            />
+
+    </LinearLayout>
+
+    <!--定义悬浮按钮-->
+ <!--   <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnToAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_vector_album"
+        android:background="@color/white"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />-->
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

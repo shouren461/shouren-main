@@ -1,4 +1,4 @@
-package com.example.shouren.functions.historyFunction
+package com.example.shouren.activity
 
 import android.content.Context
 import android.content.Intent
@@ -9,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shouren.R
-import com.example.shouren.activity.BaseActivity
 import com.example.shouren.database.HistoryDBManagerHelper
 import com.example.shouren.database.HistoryItem
 import com.example.shouren.database.RecordType
 import com.example.shouren.utils.PictureHelper
 import com.example.shouren.utils.QRHelper
 
-class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
+class HistoryItemDetailActivity: BaseActivity(), View.OnClickListener {
 
     //定义延迟初始化控件
     private  lateinit var ivBack: ImageView
@@ -29,13 +28,13 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     private  lateinit var btnShare: Button
 
     private  lateinit var dbManager: HistoryDBManagerHelper
-    private var currentItem: HistoryItem ?=null   //定义当前选中项
-    private  var currentQRBitmap: Bitmap ?= null     //定义当前二维码视图
+    private var currentItem: HistoryItem?=null   //定义当前选中项
+    private  var currentQRBitmap: Bitmap?= null     //定义当前二维码视图
     companion object {
         const val HISTORY_ITEM_ID = "item_id"
         const val TABLE_NAME = "tableName"
         fun startActivity(context: Context, id: Long, tableName: String) {
-            val intent = Intent(context, HistoryRCVDetail::class.java)
+            val intent = Intent(context, HistoryItemDetailActivity::class.java)
             intent.putExtra(HISTORY_ITEM_ID,id)
             intent.putExtra(TABLE_NAME,tableName)
             context.startActivity(intent)
@@ -45,7 +44,7 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     override fun getLayout(): Int  = R.layout.history_item_detail
 
     override fun initData() {
-      dbManager = HistoryDBManagerHelper(this,1)
+      dbManager = HistoryDBManagerHelper(this, 1)
     }
 
     override fun initView() {
@@ -72,10 +71,10 @@ class HistoryRCVDetail: BaseActivity(), View.OnClickListener {
     //初始化历史视图列表
     private fun initHistoryItemList() {
         val itemId = intent.getLongExtra(HISTORY_ITEM_ID,-1L)
-        val tableName = intent.getStringExtra(TABLE_NAME) ?: HistoryDBManagerHelper.SCAN_TABLE_NAME
-        
+        val tableName = intent.getStringExtra(TABLE_NAME) ?: HistoryDBManagerHelper.Companion.SCAN_TABLE_NAME
+
         currentItem = dbManager.selectById(itemId, tableName)
-        
+
         if (currentItem != null){
             showItemListDetail(currentItem)
         } else {
