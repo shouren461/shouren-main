@@ -17,6 +17,7 @@ import com.example.shouren.functions.createFunction.YoutubeModel
 import com.example.shouren.functions.createFunction.YoutubeType
 import com.example.shouren.utils.PictureHelper
 import com.example.shouren.utils.QRHelper
+import com.google.android.material.textfield.TextInputLayout
 
 class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
     companion object{
@@ -32,6 +33,7 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
     private lateinit var tvCategoryChannel: TextView
     private lateinit var etInput: EditText
     private lateinit var llMode: LinearLayout
+    private lateinit var tilInput: TextInputLayout
     //新增二维码视图按钮  保存按钮  分享按钮
     private lateinit var ivQr: ImageView
     private lateinit var btnSave: Button
@@ -58,9 +60,12 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
         btnSave = findViewById(R.id.btnSave)
         btnShare = findViewById(R.id.btnShare)
         dbManager = HistoryDBManagerHelper(this,1)
+        tilInput = findViewById(R.id.til_Input)
     }
 
     override fun initView() {
+        youtubeModel.type = YoutubeType.VIDEO
+        tilInput.hint = getString(R.string.hint_youtube_video_id)
         btnSave.visibility = View.GONE
         btnShare.visibility = View.GONE
     }
@@ -110,7 +115,8 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
             R.id.tvUrl -> {
                 category = CATEGORY_URL
                 youtubeModel.type = YoutubeType.URL
-                etInput.hint = getString(R.string.hint_youtube_url)
+                tilInput.hint = getString(R.string.hint_youtube_url)
+                etInput.text?.clear()
                 tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selected)
                 tvCategoryUrl.setTextColor(getColor(R.color.white))
                 tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selection)
@@ -121,7 +127,8 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
             R.id.tvVideo ->{
                 category = CATEGORY_VIDEO
                 youtubeModel.type = YoutubeType.VIDEO
-                etInput.hint = getString(R.string.hint_youtube_video_id)
+                tilInput.hint = getString(R.string.hint_youtube_video_id)
+                etInput.text?.clear()
                 tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selection)
                 tvCategoryUrl.setTextColor(getColor(R.color.black))
                 tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selected)
@@ -132,7 +139,8 @@ class YoutubeCreateActivity: BaseActivity(), View.OnClickListener {
             R.id.tvChannel ->{
                 category = CATEGORY_CHANNEL
                 youtubeModel.type = YoutubeType.CHANNEL
-                etInput.hint = getString(R.string.hint_youtube_channel_url)
+                tilInput.hint = getString(R.string.hint_youtube_channel_url)
+                etInput.text?.clear()
                 tvCategoryUrl.setBackgroundResource(R.drawable.bg_mode_selection)
                 tvCategoryUrl.setTextColor(getColor(R.color.black))
                 tvCategoryVideo.setBackgroundResource(R.drawable.bg_mode_selection)

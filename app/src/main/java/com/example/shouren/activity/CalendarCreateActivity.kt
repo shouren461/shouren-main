@@ -66,7 +66,7 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
         etDescription = findViewById(R.id.etDescription)
         tvStartDate = findViewById(R.id.tvStartDate)
         tvEndDate = findViewById(R.id.tvEndDate)
-        switchAllday = findViewById(R.id.switchAllDay) // Added missing initialization
+        switchAllday = findViewById(R.id.switchAllDay)
         ivQr = findViewById(R.id.iv_qr)
         btnSave = findViewById(R.id.btnSave)
         btnShare =findViewById(R.id.btnShare)
@@ -281,7 +281,6 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
            timestamp = System.currentTimeMillis()
            )
         dbManager.insert(HistoryDBManagerHelper.CREATE_TABLE_NAME,item)  //列表适配器自动刷新列表展示
-
     }
 
     //获取当前日历信息，用来
@@ -324,5 +323,4 @@ class CalendarCreateActivity: BaseActivity(), View.OnClickListener,  CompoundBut
     //获取月的输出文本对象
     fun getMonthText(month: Int) =
         "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_".toRegex()).toTypedArray()[month]
-
 }

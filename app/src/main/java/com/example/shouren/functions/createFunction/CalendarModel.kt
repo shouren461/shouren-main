@@ -17,7 +17,7 @@ data class CalendarModel(
     companion object{
         //格式化工具类
         private val DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss")
-        private val DATE_FORAMTTER = DateTimeFormatter.ofPattern("yyyyMMdd")
+        private val DATE_FORMATER = DateTimeFormatter.ofPattern("yyyyMMdd")
 
         //从一段格式文本中(icsContent)解析出CalendarCreateModel对象，如果解析失败或者缺少关键字段，返回null
         fun fromString(icsContent: String): CalendarModel?{
@@ -68,8 +68,8 @@ data class CalendarModel(
             return try {
                 if (isAllDay) {
                     // 解析全天日期 (只有年月日)
-                    val startDate = LocalDate.parse(startTimeStr,DATE_FORAMTTER)
-                    val endDate = LocalDate.parse(endTimeStr,DATE_FORAMTTER)
+                    val startDate = LocalDate.parse(startTimeStr,DATE_FORMATER)
+                    val endDate = LocalDate.parse(endTimeStr,DATE_FORMATER)
                     CalendarModel(
                         title = title,
                         description = description,
@@ -108,8 +108,8 @@ data class CalendarModel(
             append("SUMMARY:$title\r\n")
             if (isAllDay){
                 //全天事件输出日期格式
-                append("DTSTART;VALUE=DATE:${startTime.format(DATE_FORAMTTER)}\r\n")
-                append("DTEND;VALUE=DATE:${endTime.format(DATE_FORAMTTER)}\r\n")
+                append("DTSTART;VALUE=DATE:${startTime.format(DATE_FORMATER)}\r\n")
+                append("DTEND;VALUE=DATE:${endTime.format(DATE_FORMATER)}\r\n")
             }else{
                 //普通事件输出详细时间格式
                 append("DTSTART:${startTime.format(DATETIME_FORMATTER)}\r\n")
