@@ -19,16 +19,27 @@
 以下是关于项目中的重点知识点总结和bug修复操作:
 
 二,项目涉及的重点布局项总结：
+
 1,android:scaleType = "center" ->按图片原始大小，居中展示
+
 2,android:scaleType="centerInside" ->完整居中展示，但绝不拉伸
+
 3,android:gravity = "center" ->文字居中
+
 4,android:fontFamily = "sans-serif-medium" 使用安卓自带的中黑体字体
+
 5,android:alpha = "0.2"  ->"阿尔法通道"，代表不透明度，不透明度设置为20%，即透明度为80%
+
 6,app:tabIndicatorColor="@color/colorPrimary" ->代表所选中的指示器横条颜色
+
 7,app:layout_constraintVertical_bias = "0.3" ->代表相机扫描控件在垂直方向上偏移量百分比，上层约占30%,下层约占70%
+
 8,android:ellipsize = "end",如果文本显示不下，就在末尾显示省略号
+
 9,android:scaleType = "centerCrop" ->等比例拉伸铺满，并居中裁剪
+
 10,app:cardCornerRadius = "16dp" ->设置卡片圆角半径为16dp
+
 11,app:cardElevation = "6dp"  ->卡片的阴影深度设置为6dp
 
 三,bug修复操作:
